@@ -1,4 +1,4 @@
-builds/**/images/*
+--builds/**/images/*
 node_modules
 .sass-cache
 .tmp

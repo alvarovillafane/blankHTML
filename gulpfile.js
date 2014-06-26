@@ -28,9 +28,10 @@ if( env == "development"){
 	sassStyle = 'compress';
 }
 
-jsSources = ['components/scripts/custom.js'];
+jsSources = ['components/scripts/custom.js', 'components/scripts/free-modern.js'];
 sassSources = ['components/sass/style.scss'];
 htmlSources = [outputDir + '*.html'];
+imgSources = ['builds/development/images/*'];
 
 
 gulp.task('jsScripts', function() {
@@ -60,27 +61,27 @@ gulp.task('html', function(){
 	.pipe(connect.reload())
 	//.pipe( gulpif(env == 'production', minifyHtml()) )
 	.pipe( gulpif(env == 'production', gulp.dest(outputDir)) )
-})
+});
+
+gulp.task('img', function(){
+	gulp.src(imgSources)
+	.on('error',gutil.log)
+	.pipe( gulpif(env == 'production', gulp.dest(outputDir + 'images')) )
+});
+
 
 gulp.task('watch', function(){
 	gulp.watch(jsSources, ['jsScripts']);
 	gulp.watch('components/sass/*.scss', ['compass']);
 	gulp.watch(htmlSources, ['html']);
-})
+	gulp.watch(imgSources,['img'])
+});
 
 gulp.task('connect', function(){
 	connect.server({
 	    root: 'builds/development',
 	    livereload: true
   	});
-})
+});
 
-gulp.task('default', ['html','jsScripts','compass','connect','watch']);
-
-
-
-
-
-
-
-
+gulp.task('default', ['html','img','jsScripts','compass','connect','watch']);
