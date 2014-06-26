@@ -1,4 +1,4 @@
-//gulp save-dev gulp-xxxxxxx
+//npm install --save-dev gulp-xxxxxxx
 
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
@@ -11,7 +11,6 @@ var gulp = require('gulp'),
 	minifyHtml = require('gulp-minify-html');
 
 var env,
-	coffeeSources,
 	sassSources,
 	jsSources,
 	htmlSources,
@@ -59,12 +58,12 @@ gulp.task('compass', function() {
 gulp.task('html', function(){
 	gulp.src('builds/development/*.html')
 	.pipe(connect.reload())
-	.pipe( gulpif(env == 'production', minifyHtml()) )
+	//.pipe( gulpif(env == 'production', minifyHtml()) )
 	.pipe( gulpif(env == 'production', gulp.dest(outputDir)) )
 })
 
 gulp.task('watch', function(){
-	gulp.watch(jsSources, ['scripts']);
+	gulp.watch(jsSources, ['jsScripts']);
 	gulp.watch('components/sass/*.scss', ['compass']);
 	gulp.watch(htmlSources, ['html']);
 })
@@ -76,7 +75,7 @@ gulp.task('connect', function(){
   	});
 })
 
-gulp.task('default', ['html','scripts','compass','connect','watch']);
+gulp.task('default', ['html','jsScripts','compass','connect','watch']);
 
 
 
