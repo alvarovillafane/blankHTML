@@ -1,0 +1,2 @@
+npm install gulp gulp-util gulp-concat gulp-browserify gulp-compass gulp-connect gulp-if gulp-uglify gulp-minify-html jquery --save-dev
+
